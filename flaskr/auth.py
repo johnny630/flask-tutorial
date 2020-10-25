@@ -26,7 +26,7 @@ def load_logged_in_user():
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['passowrd']
+        password = request.form['password']
         db = get_db()
         error = None
 
@@ -35,13 +35,13 @@ def register():
         elif not password:
             error = 'Password is required.'
         elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username)
+            'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
             db.execute(
-                'INSTER INTO user (username, password) VALUES (?,?)',
+                'INSERT INTO user (username, password) VALUES (?,?)',
                 (username, generate_password_hash(password))
             )
             db.commit()
