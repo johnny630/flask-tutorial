@@ -1,3 +1,60 @@
 <div>
     name: {{ data['name'] }}
 </div>
+
+<h2>Syntax testing</h2>
+
+<h3>Config</h3>
+<ul>
+{% for k, v in config.items() %}
+  <li>{{ k }}: {{ v }}</li>
+{% endfor %}
+</ul>
+
+<h3>request</h3>
+{{ request }}
+
+<h3>session</h3>
+{{ session }}
+<ul>
+{% for k, v in session.items() %}
+  <li>{{ k }}: {{ v }}</li>
+{% endfor %}
+</ul>
+
+<h3>g</h3>
+{{ g }}
+<ul>
+{% for k in g %}
+  <li>{{ k }}</li>
+{% endfor %}
+</ul>
+
+<h3>url_for</h3>
+<a href='{{ url_for('index') }}'>url_for</a>
+
+<h3>get_flashed_messages</h3>
+{{ get_flashed_messages() }}
+
+
+<h3>tojson filter</h3>
+{{ data|tojson }}
+
+<h3>autoescape</h3>
+{% autoescape false %}
+    <p>autoescaping is disabled here
+    <p>{{ will_not_be_escaped }}
+{% endautoescape %}
+
+
+<h3>Registering Filters</h3>
+<p>You can see `core/filters.py`</p>
+{% for x in data['mylist'] | reverse %}
+  / {{ x }}
+{% endfor %}
+
+<h3>Context Processors</h3>
+<p>You can see `core/filters.py` app_context_processor</p>
+{{ user['id'] }} / {{ user['username'] }}
+<br/>
+{{ format_price(0.345) }}
